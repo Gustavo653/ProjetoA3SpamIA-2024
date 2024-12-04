@@ -66,7 +66,7 @@ Inicialmente, buscamos melhorar o desempenho do **Random Forest** ajustando hipe
 | **n_estimators=50, max_depth=10, min_samples_leaf=1**  | 0.898655  | 1.0       | 0.241611 | 0.389189 |
 | **n_estimators=100, max_depth=20, min_samples_leaf=2** | 0.951570  | 1.0       | 0.637584 | 0.778689 |
 | **n_estimators=200, max_depth=30, min_samples_leaf=3** | 0.965919  | 1.0       | 0.744966 | 0.853846 |
-| **Configuração Original (n_estimators=100, max_depth=99999999, min_samples_leaf=1)** | **0.981166**  | **1.0**   | **0.859060** | **0.924188** |
+| **Configuração Original (n_estimators=100, max_depth=None, min_samples_leaf=1)** | **0.981166**  | **1.0**   | **0.859060** | **0.924188** |
 
 ![image](https://github.com/user-attachments/assets/15bb3f78-270f-43af-9d26-e83864077181)
 
@@ -75,10 +75,19 @@ Inicialmente, buscamos melhorar o desempenho do **Random Forest** ajustando hipe
 - **Recall:** As configurações ajustadas apresentaram valores inferiores, indicando que o modelo ajustado identificou menos mensagens de spam corretamente.  
 - **F1 Score:** O modelo original apresentou o melhor equilíbrio entre precisão e recall.  
 
+Além disso, ao analisar as matrizes de confusão, foi possível observar que o Random Forest padrão teve o melhor desempenho geral, com o maior número de acertos e o menor número de erros. Abaixo está a comparação entre o modelo padrão e o ajustado com 200 estimadores:
+### Comparação das Matrizes de Confusão
+![image](https://github.com/user-attachments/assets/71d19d2f-7176-485f-83b2-e66f26e1bbd7)
+- **Modelo Padrão (n_estimators=100, max_depth=None, min_samples_leaf=1)**:
+  - **ensagens legítimas (Ham)**: O modelo identificou quase todas corretamente, com pouquíssimos falsos positivos.
+  - **Mensagens de spam**: Maior número de acertos entre todas as configurações, com o menor número de falsos negativos.
+- **Modelo Ajustado (n_estimators=200, max_depth=30, min_samples_leaf=3)**:
+  - Embora tenha apresentado desempenho bom, o número de falsos negativos (mensagens de spam não identificadas) foi maior do que no modelo padrão, resultando em um recall inferior.
+
 ### Justificativa para utilizar os Hiperparâmetros Originais
 As tentativas de ajuste nos hiperparâmetros não resultaram em melhorias no desempenho. O desempenho do modelo original já era ótimo devido à sua flexibilidade:  
 1. **n_estimators=100:** Número suficiente de árvores para garantir robustez e estabilidade sem aumentar desnecessariamente o custo computacional.  
-2. **max_depth=99999999:** Permitiu que as árvores explorassem toda a profundidade necessária para capturar padrões complexos.  
+2. **max_depth=None:** Permitiu que as árvores explorassem toda a profundidade necessária para capturar padrões complexos.  
 3. **min_samples_leaf=1:** Garantiu que o modelo identificasse até mesmo padrões raros, aumentando o recall.
 
 Com base nisso, concluímos que a configuração original ofereceu o melhor desempenho possível para este problema. Optar por mantê-la evita overfitting e garante uma solução eficiente e bem balanceada.
