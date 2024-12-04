@@ -103,11 +103,9 @@ Com base nisso, concluímos que a configuração original ofereceu o melhor dese
 ### Melhorias Futuras
 1. **Balanceamento de Classes:** Implementar técnicas como **oversampling** (e.g., SMOTE) ou **under-sampling** para lidar com o desbalanceamento.
 2. **Modelos Avançados:** Utilizar algoritmos baseados em deep learning, como **Transformers (BERT)**, que captam contextos mais complexos.
-3. **Hiperparâmetros Otimizados:** Realizar uma busca sistemática por hiperparâmetros utilizando técnicas como **Grid Search** ou **Bayesian Optimization**.
-4. **Incorporação de Métodos de Explicabilidade:** Usar ferramentas como **SHAP** ou **LIME** para entender melhor as decisões do modelo.
 
 ---
 
 ## 5. Conclusão
 
-O modelo **Random Forest** foi escolhido como o melhor classificador para identificar mensagens de spam. Ele demonstrou excelente desempenho em precisão e recall, especialmente após o ajuste de hiperparâmetros. Melhorias futuras podem incluir balanceamento do dataset e uso de modelos mais avançados para aumentar ainda mais o desempenho.
+O modelo **Random Forest** foi escolhido como o melhor classificador para identificar mensagens de spam. Ele demonstrou excelente desempenho, especialmente com seus **hiperparâmetros padrão**, superando todas as combinações ajustadas em termos de precisão e recall. Embora ajustes de hiperparâmetros tenham sido testados, os valores padrão (n_estimators=100, max_depth=None, min_samples_leaf=1) garantiram um desempenho superior, com o melhor equilíbrio entre acurácia e identificação de spam. Melhorias futuras podem incluir o balanceamento do dataset e o uso de modelos mais avançados para explorar ainda mais o potencial do classificador.
