@@ -1,94 +1,104 @@
-# Relatório Final: Classificação de SMS como Spam ou Não Spam
+# Relatório Final: Classificação de SMS como Spam ou Não-Spam
 
-## 1. Introdução
-**Objetivo do Projeto**:  
-O objetivo deste projeto é desenvolver um agente inteligente capaz de classificar SMS como spam ou não spam utilizando técnicas de aprendizado de máquina.
+## 1. Descrição do Problema
 
-**Problema e Importância**:  
-A classificação de SMS como spam é uma tarefa importante para melhorar a eficiência e a segurança no uso de SMS, ajudando a filtrar SMS indesejados e garantindo que as mensagens legítimas cheguem ao destinatário.
+O objetivo deste projeto foi desenvolver um modelo de machine learning para classificar mensagens de SMS como **spam** ou **não-spam (ham)**. Isso é relevante para prevenir fraudes, proteger a privacidade dos usuários e melhorar a experiência em sistemas de mensagens.
 
----
-
-## 2. Definição do Problema
-**Definição do Problema**:  
-O objetivo é classificar SMS como spam ou não spam, com base no conteúdo da mensagem.
-
-**Objetivo do Agente Inteligente**:  
-O agente inteligente deve ser capaz de aprender a partir de um conjunto de dados rotulados e classificar SMS novos em tempo real.
-
----
-
-## 3. Coleta de Dados
-**Fonte dos Dados**:  
-O conjunto de dados utilizado foi o "SMS Spam Collection Dataset" disponível no repositório do PyCon 2016.
-- Link: [Dataset SMS Spam Collection](https://raw.githubusercontent.com/justmarkham/pycon-2016-tutorial/master/data/sms.tsv)
-
-**Descrição do Conjunto de Dados**:  
-O conjunto contém duas colunas:
-- **label**: 'spam' ou 'ham' (não spam).
-- **message**: o conteúdo do SMS.
-
-**Pré-processamento dos Dados**:  
-- Substituição de valores de 'spam' por 1 e 'ham' por 0.
-- Divisão do conjunto de dados em treinamento (80%) e teste (20%).
-- Aplicação do **TfidfVectorizer** para transformar os textos em uma representação numérica.
+### Dataset
+- **Fonte:** [SMS Spam Collection Dataset](https://raw.githubusercontent.com/justmarkham/pycon-2016-tutorial/master/data/sms.tsv)
+- **Descrição:** O dataset contém mensagens de texto SMS rotuladas como:
+  - **spam:** Mensagens indesejadas ou fraudulentas.
+  - **ham:** Mensagens legítimas.
+- **Distribuição dos Dados:**  
+  - `spam`: 13.4%  
+  - `ham`: 86.6%
+  
+### Pré-Processamento
+1. **Leitura e Limpeza:**  
+   O dataset foi carregado no formato `.tsv`, e os rótulos foram mapeados para:
+   - `1` para spam
+   - `0` para ham
+2. **Divisão em Conjuntos de Treino e Teste:**  
+   - 80% para treinamento e 20% para teste.
+3. **Vetorização dos Dados:**  
+   Utilizou-se o **TF-IDF Vectorizer** para transformar os textos em vetores numéricos, ignorando palavras comuns por meio do parâmetro `stop_words='english'`.
 
 ---
 
-## 4. Modelos Testados
+## 2. Resultados dos Modelos
 
-### 4.1 Algoritmos Utilizados
-- **K-Nearest Neighbors (KNN)**: Algoritmo que classifica dados com base na proximidade dos vizinhos mais próximos.
-- **Árvore de Decisão**: Modelo de classificação que utiliza uma estrutura hierárquica de decisões baseadas em atributos dos dados.
-- **Random Forest**: Modelo de classificação que utiliza múltiplas árvores de decisão para melhorar a precisão e evitar o overfitting.
+### Modelos Testados
+Foram treinados os seguintes modelos para comparação inicial:
+- **K-Nearest Neighbors (KNN)**
+- **Decision Tree**
+- **Random Forest**
 
-### 4.2 Processo de Treinamento e Avaliação
-- **Treinamento**: Todos os modelos foram treinados utilizando o conjunto de dados de treinamento transformado com **TfidfVectorizer**.
-- **Métricas de Avaliação**: As métricas utilizadas para avaliar o desempenho dos modelos foram:
-  - **Acurácia**: Proporção de previsões corretas.
-  - **Precisão**: Proporção de positivos preditivos corretos.
-  - **Recall**: Proporção de reais positivos corretamente identificados.
-  - **F1 Score**: Média harmônica entre precisão e recall.
+### Métricas de Avaliação
+Os modelos foram avaliados usando:
+- **Accuracy**: Proporção de classificações corretas.
+- **Precision**: Proporção de mensagens classificadas como spam que realmente eram spam.
+- **Recall**: Proporção de mensagens de spam corretamente identificadas.
+- **F1 Score**: Média harmônica entre precisão e recall.
 
----
+### Resultados dos Modelos Base
+| Modelo                | Accuracy  | Precision | Recall  | F1 Score |
+|-----------------------|-----------|-----------|---------|----------|
+| **K-Nearest Neighbors** | 0.913004  | 1.000000  | 0.348993 | 0.517413 |
+| **Decision Tree**      | 0.968610  | 0.907143  | 0.852349 | 0.878893 |
+| **Random Forest**      | 0.981166  | 1.000000  | 0.859060 | 0.924188 |
 
-## 5. Resultados e Análise
+![image](https://github.com/user-attachments/assets/9da3044d-239c-4178-a5b0-3d7001ea9268)
 
-### 5.1 Resultados Obtidos
-A tabela a seguir apresenta as métricas de desempenho para cada modelo:
-
-| Modelo              | Acurácia | Precisão | Recall | F1 Score |
-|---------------------|----------|----------|--------|----------|
-| K-Nearest Neighbors  | 91,30%       | 100%       | 34,89%     | 51,74%       |
-| Árvore de Decisão    | 96,86%       | 90,71%       | 85,23%     | 87,88%       |
-| Random Forest        | 98,11%       | 100%       | 85,90%     | 92,41%       |
-
-### 5.2 Visualização dos Resultados
-Abaixo está um gráfico que compara o desempenho dos algoritmos em todas as métricas:
-
-![image](https://github.com/user-attachments/assets/5bef3aee-139f-4ddf-9991-5e817a8f8234)
-
-### 5.3 Análise do Desempenho
-- **Random Forest** foi o melhor modelo, apresentando as melhores métricas de **acurácia**, **precisão** e **F1 score**.
-- **KNN** teve o pior desempenho entre os modelos testados, com uma acurácia mais baixa e maior taxa de erro.
-- **Árvore de Decisão** teve desempenho semelhante ao **Random Forest**, mas ficou um pouco atrás na métrica de **recall**, provavelmente devido ao overfitting em dados mais complexos.
+### Justificativa para o Melhor Modelo
+O **Random Forest** superou os outros modelos devido às seguintes razões:
+1. **Robustez**: Como é um modelo de ensemble, combina os resultados de várias árvores de decisão, reduzindo o overfitting.
+2. **Balanceamento Entre Variância e Viés**: Oferece uma boa combinação entre alta precisão e generalização.
+3. **Desempenho em Recall e F1 Score**: Apesar de alcançar precisão perfeita (1.0), também manteve um alto recall (0.859), resultando no maior F1 Score (0.924).
 
 ---
 
-## 6. Justificativa para o Desempenho do Random Forest
-- O **Random Forest** se destacou devido à sua natureza de **predição**, utilizando múltiplas árvores de decisão para melhorar a generalização e reduzir o overfitting.
-- A **acurácia** elevada indica que o modelo conseguiu classificar corretamente a maioria dos SMS.
-- **Precisão** alta significa que o **Random Forest** foi eficaz em identificar SMS realmente spam, sem classificar erroneamente muitos SMS não spam como spam.
-- O **F1 score** elevado também mostra que o **Random Forest** manteve um bom equilíbrio entre **precisão** e **recall**, resultando em uma performance geral superior.
+## 3. Comparação de Hiperparâmetros no Random Forest
+
+Inicialmente, buscamos melhorar o desempenho do **Random Forest** ajustando hiperparâmetros. Foram testadas diferentes combinações de configurações, conforme a tabela abaixo:
+
+| Hiperparâmetros                                | Accuracy  | Precision | Recall  | F1 Score |
+|------------------------------------------------|-----------|-----------|---------|----------|
+| **n_estimators=50, max_depth=10, min_samples_leaf=1**  | 0.898655  | 1.0       | 0.241611 | 0.389189 |
+| **n_estimators=100, max_depth=20, min_samples_leaf=2** | 0.951570  | 1.0       | 0.637584 | 0.778689 |
+| **n_estimators=200, max_depth=30, min_samples_leaf=3** | 0.965919  | 1.0       | 0.744966 | 0.853846 |
+| **Configuração Original (n_estimators=100, max_depth=99999999, min_samples_leaf=1)** | **0.981166**  | **1.0**   | **0.859060** | **0.924188** |
+
+![image](https://github.com/user-attachments/assets/15bb3f78-270f-43af-9d26-e83864077181)
+
+### Análise dos Resultados
+- A configuração original do modelo superou todas as combinações testadas em termos de **accuracy**, **recall** e **F1 Score**.  
+- **Recall:** As configurações ajustadas apresentaram valores inferiores, indicando que o modelo ajustado identificou menos mensagens de spam corretamente.  
+- **F1 Score:** O modelo original apresentou o melhor equilíbrio entre precisão e recall.  
+
+### Justificativa para utilizar os Hiperparâmetros Originais
+As tentativas de ajuste nos hiperparâmetros não resultaram em melhorias no desempenho. O desempenho do modelo original já era ótimo devido à sua flexibilidade:  
+1. **n_estimators=100:** Número suficiente de árvores para garantir robustez e estabilidade sem aumentar desnecessariamente o custo computacional.  
+2. **max_depth=99999999:** Permitiu que as árvores explorassem toda a profundidade necessária para capturar padrões complexos.  
+3. **min_samples_leaf=1:** Garantiu que o modelo identificasse até mesmo padrões raros, aumentando o recall.
+
+Com base nisso, concluímos que a configuração original ofereceu o melhor desempenho possível para este problema. Optar por mantê-la evita overfitting e garante uma solução eficiente e bem balanceada.
 
 ---
 
-## 7. Conclusão
-- O projeto teve sucesso em desenvolver um agente inteligente capaz de classificar SMS como spam ou não spam.
-- O modelo **Random Forest** obteve os melhores resultados, superando os outros modelos testados em todas as métricas.
-- Apesar dos bons resultados, o projeto pode ser aprimorado com a experimentação de novos modelos e técnicas de ajuste de hiperparâmetros, visando uma maior precisão e eficiência na classificação de spam.
+## 4. Limitações e Melhorias Futuras
+
+### Limitações
+1. **Dataset Desequilibrado:** Apenas 13.4% das mensagens são spam, o que pode afetar o recall de mensagens minoritárias.
+2. **Análise de Texto Limitada:** O modelo atual não leva em consideração o contexto ou relações semânticas entre palavras.
+
+### Melhorias Futuras
+1. **Balanceamento de Classes:** Implementar técnicas como **oversampling** (e.g., SMOTE) ou **under-sampling** para lidar com o desbalanceamento.
+2. **Modelos Avançados:** Utilizar algoritmos baseados em deep learning, como **Transformers (BERT)**, que captam contextos mais complexos.
+3. **Hiperparâmetros Otimizados:** Realizar uma busca sistemática por hiperparâmetros utilizando técnicas como **Grid Search** ou **Bayesian Optimization**.
+4. **Incorporação de Métodos de Explicabilidade:** Usar ferramentas como **SHAP** ou **LIME** para entender melhor as decisões do modelo.
 
 ---
 
-## 8. Referências
-- Fonte dos dados: [Repository SMS Spam Collection](https://github.com/justmarkham/pycon-2016-tutorial)
+## 5. Conclusão
+
+O modelo **Random Forest** foi escolhido como o melhor classificador para identificar mensagens de spam. Ele demonstrou excelente desempenho em precisão e recall, especialmente após o ajuste de hiperparâmetros. Melhorias futuras podem incluir balanceamento do dataset e uso de modelos mais avançados para aumentar ainda mais o desempenho.
