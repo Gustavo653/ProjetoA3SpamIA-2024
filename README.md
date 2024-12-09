@@ -79,7 +79,7 @@ Além disso, ao analisar as matrizes de confusão, foi possível observar que o 
 ### Comparação das Matrizes de Confusão
 ![image](https://github.com/user-attachments/assets/71d19d2f-7176-485f-83b2-e66f26e1bbd7)
 - **Modelo Padrão (n_estimators=100, max_depth=None, min_samples_leaf=1)**:
-  - **ensagens legítimas (Ham)**: O modelo identificou quase todas corretamente, com pouquíssimos falsos positivos.
+  - **Mensagens legítimas (Ham)**: O modelo identificou quase todas corretamente, com poucos falsos positivos.
   - **Mensagens de spam**: Maior número de acertos entre todas as configurações, com o menor número de falsos negativos.
 - **Modelo Ajustado (n_estimators=200, max_depth=30, min_samples_leaf=3)**:
   - Embora tenha apresentado desempenho bom, o número de falsos negativos (mensagens de spam não identificadas) foi maior do que no modelo padrão, resultando em um recall inferior.
@@ -101,11 +101,11 @@ Com base nisso, concluímos que a configuração original ofereceu o melhor dese
 2. **Análise de Texto Limitada:** O modelo atual não leva em consideração o contexto ou relações semânticas entre palavras.
 
 ### Melhorias Futuras
-1. **Balanceamento de Classes:** Implementar técnicas como **oversampling** (e.g., SMOTE) ou **under-sampling** para lidar com o desbalanceamento.
+1. **Balanceamento de Classes:** Implementar técnicas como **oversampling** ou **under-sampling** para lidar com o desbalanceamento.
 2. **Modelos Avançados:** Utilizar algoritmos baseados em deep learning, como **Transformers (BERT)**, que captam contextos mais complexos.
 
 ---
 
 ## 5. Conclusão
 
-O modelo **Random Forest** foi escolhido como o melhor classificador para identificar mensagens de spam. Ele demonstrou excelente desempenho, especialmente com seus **hiperparâmetros padrão**, superando todas as combinações ajustadas em termos de precisão e recall. Embora ajustes de hiperparâmetros tenham sido testados, os valores padrão (n_estimators=100, max_depth=None, min_samples_leaf=1) garantiram um desempenho superior, com o melhor equilíbrio entre acurácia e identificação de spam. Melhorias futuras podem incluir o balanceamento do dataset e o uso de modelos mais avançados para explorar ainda mais o potencial do classificador.
+O modelo **Random Forest** foi escolhido como o melhor classificador para identificar mensagens de spam. Ele demonstrou excelente desempenho, especialmente com seus **hiperparâmetros padrões**, superando todas as combinações testadas em termos de precisão e recall. Embora ajustes de hiperparâmetros tenham sido testados, os valores padrão (n_estimators=100, max_depth=None, min_samples_leaf=1) garantiram um desempenho superior, com o melhor equilíbrio entre acurácia e identificação de spam. Melhorias futuras podem incluir o balanceamento do dataset e o uso de modelos mais avançados para explorar ainda mais o potencial do classificador.
